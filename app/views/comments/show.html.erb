@@ -2,4 +2,8 @@
 
 <p><%= @comment.body %></p>
 
+<p>Created at: <%= @comment.created_at %></p>
+<p>Last Edited at: <%= @comment.updated_at %></p>
+
+
 <%= link_to "Back", article_comments_path(@article) %>

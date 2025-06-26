@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_article, only:[:create, :index, :destroy, :edit, :update]
+  before_action :set_article, only:[:create, :index, :destroy, :edit, :update, :show]
+  before_action :set_comment, only:[:show, :destroy, :edit, :update]
 
   def create
     @comment = @article.comments.create(comment_params)
@@ -10,18 +11,18 @@ class CommentsController < ApplicationController
     @comments = @article.comments
   end
 
+  def show
+  end
+
   def destroy 
-    @comment = @article.comments.find(params[:id])
     @comment.destroy 
     redirect_to article_comments_path(@article), notice: "Comment deleted"
   end
 
   def edit
-    @comment = @article.comments.find(params[:id])
   end
 
   def update 
-    @comment = @article.comments.find(params[:id])
     if @comment.update(comment_params)
       redirect_to article_comments_path(@article), notice: "Comment updated"
     else 
@@ -36,5 +37,9 @@ class CommentsController < ApplicationController
 
     def set_article
       @article = Article.find(params[:article_id])
+    end
+
+    def set_comment
+      @comment = @article.comments.find(params[:id])
     end
 end

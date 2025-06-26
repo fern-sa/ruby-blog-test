@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root "articles#index"
 
   #only:[:index, :show, :new, :create, :edit, :update, :destroy]
-  resources :articles
+  #non restful example -> get "articles/:id", to: "articles#show"
+  resources :articles do
+    resources :comments
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

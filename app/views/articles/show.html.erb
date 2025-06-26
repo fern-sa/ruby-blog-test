@@ -17,9 +17,9 @@
 </ul>
 
 <div><h2>Comments</h2> <%= link_to "Manage Comments", article_comments_path(@article)%></div>
-<%= render @article.comments %>
+<%= render @article.comments.select {|c| c.persisted?} %>
 
 <h2>Add a comment:</h2>
-<%= render "comments/form", article: @article, comment: @article.comments.build %>
+<%= render "comments/form", article: @article, comment: @comment || @article.comments.build %>
 
 <%= link_to "Home", root_path %>

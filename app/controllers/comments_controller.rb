@@ -3,8 +3,12 @@ class CommentsController < ApplicationController
   before_action :set_comment, only:[:show, :destroy, :edit, :update]
 
   def create
-    @comment = @article.comments.create(comment_params)
-    redirect_to article_path(@article), notice: "Comment successful"
+    @comment = @article.comments.new(comment_params)
+    if @comment.save
+      redirect_to article_path(@article)
+    else
+      render 'articles/show', status: :unprocessable_entity
+    end
   end
 
   def index
@@ -43,5 +47,5 @@ class CommentsController < ApplicationController
   def set_comment
     @comment = @article.comments.find(params[:id])
   end
-  
+
 end
